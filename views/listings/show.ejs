@@ -1,0 +1,212 @@
+<% layout("layouts/boilerplate") %>
+
+  <div class="row">
+    <div class="col-8 offset-2">
+     <h4> <%= listing.title %></h4>
+      <!-- Listing Card -->
+      <div class="card listing-card">
+        <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image" />
+        <div class="card-body">
+          <h3 class="card-title">
+           
+          </h3>
+          <h4>Owned by :</h4>
+          <% if (listing.owner) { %>
+              <h5><%= listing.owner.username %></h5>
+          <% } else { %>
+              <h5>Owner not available</h5> <!-- Prevents crashing -->
+          <% } %>
+          
+
+          <p class="card-text description">
+            <%= listing.description %>
+          </p>
+          <p class="card-price"><strong>&#8377; <%= listing.price %></strong></p>
+          <p class="card-location">
+            <span><strong>Location:</strong>
+              <%= listing.location %>
+            </span><br />
+            <span><strong>Country:</strong>
+              <%= listing.country %>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+<!-- -->
+
+  <!--  -->
+  <% if (curruser && listing.owner && curruser._id.equals(listing.owner._id)) { %>
+
+
+    <!-- Edit and Delete Buttons -->
+    <div class="actions mt-3">
+      <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit this Listing</a>
+      <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="delete-form">
+        <button type="submit" class="btn btn-danger">Delete this Listing</button>
+      </form>
+    </div>
+  <% } %>
+    
+
+    <!-- Review Section -->
+  
+    <div class="col-8 offset-3">
+      <%if(curruser){%>
+      <h4>Leave a review</h4>
+
+      <!-- Review Form -->
+      <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
+        <!-- Star Rating -->
+        <!-- Star Rating -->
+        <div class="mb-3 mt-3">
+          <label for="rating" class="form-label">Rating</label>
+          <div class="star-rating">
+            <% for(let i=5; i>=1; i--) { %>
+              <input type="radio" id="star<%= i %>" name="review[rating]" value="<%= i %>" class="form-check-input"
+                required>
+              <label for="star<%= i %>" class="form-check-label">&#9733;</label>
+              <% } %>
+          </div>
+          <div class="invalid-feedback">Please select a rating.</div>
+        </div>
+
+
+
+        <!-- Comment Section -->
+        <div class="mb-3 mt-3">
+          <label for="comment" class="form-label">Comment</label>
+          <textarea name="review[comment]" id="comment" cols="20" rows="5" class="form-control" required></textarea>
+          <div class="invalid-feedback">Please provide a comment.</div>
+        </div>
+
+        <button class="btn btn-dark" type="submit">Submit</button>
+      </form>
+     <% } %>
+      <hr />
+
+      <!-- Display Reviews -->
+      <h4>All Reviews</h4>
+  
+  
+  
+  
+      <% for(review of listing.reviews) { %>
+        <div class="card col-5 ms-3 mb-3">
+             <div class="card-body">
+              <h1 class="card-title">@<%= review.author.username %></h1>
+            <strong>Rating:</strong> <span class="star-display">
+                <%= "⭐".repeat(review.rating) %>
+            </span> <br>
+            <strong>Comment:</strong> <%= review.comment %>
+            <!-- Delete review form -->
+            <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="delete-form">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </div>
+      </div>
+    <% } %>
+    
+  
+  
+              
+      
+
+
+
+
+    </div>
+  
+    <div class="col-8 offset-3">
+
+    <div style="width: 50vw;height: 55vh;" id="mapContainer"></div>
+
+  
+
+  </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+  <script>
+    let apiKey = "<%= process.env.MAP_API %>";  
+
+    async function loadMap() {
+        const address = "<%= listing.location.replace(/"/g, '&quot;') %>"; // Escape quotes for safety
+        const geocodeUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${encodeURIComponent(address)}&apiKey=${apiKey}`;
+
+        try {
+            const response = await fetch(geocodeUrl);
+            const data = await response.json();
+
+            let lat = 20, lng = 30; // Default location (fallback)
+            if (data.items.length > 0) {
+                lat = data.items[0].position.lat;
+                lng = data.items[0].position.lng;
+            }
+
+            var platform = new H.service.Platform({ apikey: apiKey });
+            var defaultLayers = platform.createDefaultLayers();
+
+            var map = new H.Map(
+                document.getElementById('mapContainer'),
+                defaultLayers.vector.normal.map,
+                {
+                    center: { lat, lng },
+                    zoom: 12,
+                    pixelRatio: window.devicePixelRatio || 1
+                }
+            );
+
+            window.addEventListener('resize', () => map.getViewPort().resize());
+
+            var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+            var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+            // 📍 Custom Marker Icon (Optional)
+            var icon = new H.map.Icon('https://cdn-icons-png.flaticon.com/512/684/684908.png', { size: { w: 40, h: 40 } });
+
+            // 🏷️ Add Marker with Custom Icon
+            var marker = new H.map.Marker({ lat, lng }, { icon });
+            map.addObject(marker);
+
+            // 🏷️ Info Bubble (Displays Location)
+            var bubble = new H.ui.InfoBubble({ lat, lng }, {
+                content: `<b>📍 Location:</b> ${address}`
+            });
+            ui.addBubble(bubble);
+
+            // Center on the marker
+            map.setCenter({ lat, lng });
+            map.setZoom(14);
+
+        } catch (error) {
+            console.error("Geocoding API Error:", error);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadMap);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/reviewValidation.js"></script>
+

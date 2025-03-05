@@ -1,0 +1,89 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary  border-bottom  sticky-top" style="background-color: #445460;">
+    <div class="container-fluid">
+
+
+
+        <a class="navbar-brand" href="/listings">
+            <i class="fa-solid fa-earth-asia" style="color: #74C0FC;"></i>
+          </a>
+
+      <!-- Left-aligned navigation links -->
+     
+     
+     
+     
+     
+  
+      <!-- Search form -->
+    
+    
+  
+    
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+  
+    
+  
+      <!-- Collapsible content -->
+     
+     
+    
+      
+      
+      
+      
+      
+
+        <div class="navbar-nav ms-auto ">
+                
+  <% if(curruser) {%>
+    <div class="navbar-nav">
+      <a class="nav-link" href="/listings/new">Urbanoasis</a>
+    </div>
+  <% } %> 
+
+          <% if(!curruser) {%>
+       
+            <a class="nav-link" href="/signup">Signup</a>
+        
+        
+            <a class="nav-link" href="/login">Login</a>
+           <% } %>
+         
+           <% if(curruser) {%>
+         
+            <a class="nav-link" href="/logout">Logout</a>
+            <% } %>
+      
+        </div>
+      </div>
+    </div>
+  </nav>
+  <script src="/public/search.js"></script>

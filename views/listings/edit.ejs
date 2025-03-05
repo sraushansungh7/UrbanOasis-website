@@ -1,0 +1,93 @@
+<% layout("layouts/boilerplate") %>
+
+<form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="edit-listing-form needs-validation" novalidate enctype="multipart/form-data">
+  <!-- Title Section -->
+  <div class="form-group title-section">
+    <label for="listing-title" class="form-label">Title</label>
+    <input id="listing-title" name="listing[title]" value="<%= listing.title %>" type="text" class="form-control" required />
+    <div class="invalid-feedback">Please provide a title.</div>
+    <div class="valid-feedback">Looks good!</div>
+  </div>
+
+  <!-- Description Section -->
+  <div class="form-group description-section">
+    <label for="listing-description" class="form-label">Description</label>
+    <textarea id="listing-description" name="listing[description]" class="form-control" required><%= listing.description %></textarea>
+    <div class="invalid-feedback">Description cannot be empty.</div>
+    <div class="valid-feedback">Looks good!</div>
+  </div>
+
+  <!-- Image Section -->
+<!-- Image Section -->
+<div class="mb-3">
+  <img src="<%= original %>" class="img-thumbnail" alt="Current Image" />
+</div>
+
+
+  <div class="form-group image-section">
+    <label for="listing-image" class="form-label">Update img</label>
+    <input id="listing-image" name="listing[image]" value="<%= listing.image.url %>" type="file" class="form-control"  />
+   
+   
+  </div>
+
+  <!-- Price and Country Section -->
+  <div class="form-group row price-country-section">
+    <div class="col-md-6">
+      <label for="listing-price" class="form-label">Price</label>
+      <input id="listing-price" name="listing[price]" value="<%= listing.price %>" type="number" class="form-control" min="1" required />
+      <div class="invalid-feedback">Please enter a valid price.</div>
+      <div class="valid-feedback">Looks good!</div>
+    </div>
+    <div class="col-md-6">
+      <label for="listing-country" class="form-label">Country</label>
+      <input id="listing-country" name="listing[country]" value="<%= listing.country %>" type="text" class="form-control" required />
+      <div class="invalid-feedback">Please enter a country.</div>
+      <div class="valid-feedback">Looks good!</div>
+    </div>
+  </div>
+
+  <!-- Location Section -->
+  <div class="form-group location-section">
+    <label for="listing-location" class="form-label">Location</label>
+    <input id="listing-location" name="listing[location]" value="<%= listing.location %>" type="text" class="form-control" required />
+    <div class="invalid-feedback">Location is required.</div>
+    <div class="valid-feedback">Looks good!</div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="form-group submit-section">
+    <button type="submit" class="btn btn-primary">Edit</button>
+  </div>
+</form>
+
+<script>
+  // Bootstrap Validation Script
+  (function () {
+    'use strict';
+    var forms = document.querySelectorAll('.needs-validation');
+    
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+
+  // Live Validation (Instant feedback)
+  document.querySelectorAll(".form-control").forEach(input => {
+    input.addEventListener("input", () => {
+      if (input.checkValidity()) {
+        input.classList.add("is-valid");
+        input.classList.remove("is-invalid");
+      } else {
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
+      }
+    });
+  });
+</script>

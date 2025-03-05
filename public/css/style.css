@@ -1,0 +1,338 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+  }
+
+.container {
+   
+    flex: 1;
+  }
+  
+
+  .card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(55, 55, 55, 0.2);
+  }
+
+  .card-img-top {
+    object-fit: cover;
+    height: 200px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-text {
+    color: #6c757d;
+    font-size: 1rem;
+  }
+
+  .btn {
+    font-size: 0.875rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+  }
+  .listing-link{
+    text-decoration: none;
+
+}
+
+
+
+
+
+  .form-list {
+    max-width: 600px;
+    margin: auto;
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #218838;
+  }
+
+
+/*edit section */
+.edit-listing-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #555;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .price-country-section {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .submit-section {
+    text-align: center;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+/* Show Page */
+.listing-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .card-img-top {
+    max-height: 400px;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .description {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .card-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .card-location {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+  }
+  
+  .btn-danger:hover {
+    background-color: #b02a37;
+  }
+  
+  .delete-form {
+    margin: 0;
+  }
+
+  /* heart shape red color */
+
+  /* Default State */
+.like-icon {
+    font-size: 24px;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  /* Active (Red) State */
+  .like-icon.active {
+    color: red;
+  }
+/* review rating style*/
+/* General Styling for the Review Form */
+.col-8.offset-3 {
+  max-width: 900px;
+  margin: 30px auto;
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Star Rating Styling */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 24px;
+ 
+  cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+  color: #e3c136; /* Highlight the stars when selected */
+}
+
+/* Invalid Feedback */
+.invalid-feedback {
+  font-size: 12px;
+  color: red;
+}
+
+/* Comment Section */
+textarea {
+  width: 100%;
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+textarea:focus {
+  border-color: #007bff;
+}
+
+/* Submit Button */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Reviews Section */
+ul.list-group {
+  margin-top: 30px;
+}
+
+.list-group-item {
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.star-display {
+  font-size: 18px;
+  color: #ffd700;
+}
+
+.list-group-item strong {
+  color: #333;
+}
+.star-label {
+  color: gray;
+  padding: 5px;
+  transition: color 0.3s ease-in-out;
+}
+
+.star-input:checked ~ .star-label,
+.star-label:hover,
+.star-label:hover ~ .star-label {
+  color: gold;
+}

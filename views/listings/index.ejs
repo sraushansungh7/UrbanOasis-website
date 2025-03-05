@@ -1,0 +1,80 @@
+<% layout("layouts/boilerplate") %>
+
+
+
+
+
+
+<style>
+  #filters{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px;
+  }
+  .filter{
+    margin: 5px;
+  }
+</style>
+<div id="filters">
+  <div class="filter">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trends</p>
+  </div>
+  <div class="filter">
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p>Rooms</p>
+  </div>
+  <div class="filter">
+    <div><i class="fas fa-campground"></i></div>
+    <p>camp</p>
+</div>
+<div class="filter">
+  <div><i class="fas fa-warehouse"></i></div>
+  <p>warehouse</p>
+</div>
+<div class="filter">
+  <div><i class="fas fa-swimming-pool"></i></div>
+  <p>swim-pool</p>
+</div>
+</div>
+  <!-- Container for listings with a responsive layout -->
+
+  <div class="container mt-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <!-- Loop through all listings -->
+      <% for (let Listing of allListings) { %>
+ 
+        <a href="/listings/<%= Listing.id %>" class="listing-link" >
+        <div class="col">
+          <div class="card h-100 shadow-sm border-0">
+            <!-- Display listing image with hover effect -->
+            <div class="position-relative">
+              <img src="<%= Listing.image.url %>" class="card-img-top" alt="Listing_Image">
+              <div class="position-absolute top-0 end-0 p-2">
+                <!-- Example badge or label, if needed -->
+
+              <!-- Heart Icon -->
+<i class="fa-regular fa-heart like-icon" id="likeIcon"></i>
+
+              </div>
+            </div>
+
+            <div class="card-body">
+              <!-- Display listing title and price -->
+              <h5 class="card-title text-truncate"><%= Listing.title %></h5>
+              <p class="card-text text-muted">Price: &#8377;<%= Listing.price %></p>
+              <!-- Link to the listing's details -->
+             
+            </div>
+          </div>
+        </div>
+      </a>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Optional footer or additional features -->
+  
+  
+  
+
